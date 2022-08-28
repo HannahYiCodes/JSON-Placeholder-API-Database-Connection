@@ -1,7 +1,6 @@
-package com.careerdevs.jsonplaceholderapi.controller;
+package com.careerdevs.jsonplaceholderapi.basic.controller;
 
-import com.careerdevs.jsonplaceholderapi.models.AlbumModel;
-import com.careerdevs.jsonplaceholderapi.models.CommentModel;
+import com.careerdevs.jsonplaceholderapi.basic.models.PhotoModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,13 +10,13 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 @RestController
-@RequestMapping("/api/albums")
-public class AlbumController {
-    private final String jsonPHAlbumsEndpoint = "https://jsonplaceholder.typicode.com/albums";
+@RequestMapping("/api/photos")
+public class PhotoController {
+    private final String jsonPHPhotoEndpoint = "https://jsonplaceholder.typicode.com/photos";
     @GetMapping("/all")
-    public ResponseEntity<?> getAllAlbums(RestTemplate restTemplate) {
+    public ResponseEntity<?> getAllPhotos(RestTemplate restTemplate) {
         try {
-            AlbumModel[] response = restTemplate.getForObject(jsonPHAlbumsEndpoint, AlbumModel[].class);
+            PhotoModel[] response = restTemplate.getForObject(jsonPHPhotoEndpoint, PhotoModel[].class);
             return ResponseEntity.ok(response);
         } catch (Exception e) {
             System.out.println(e.getClass());
@@ -28,15 +27,15 @@ public class AlbumController {
     }
 
     @GetMapping("/id/{id}")
-    public ResponseEntity<?> getAlbumById(RestTemplate restTemplate, @PathVariable String id) {
+    public ResponseEntity<?> getPhotoById(RestTemplate restTemplate, @PathVariable String id) {
         try {
             Integer.parseInt(id);
 
-            System.out.println("Getting Comment With ID: " + id);
+            System.out.println("Getting Photo With ID: " + id);
 
-            String url = jsonPHAlbumsEndpoint + "/" + id;
+            String url = jsonPHPhotoEndpoint + "/" + id;
 
-            AlbumModel response = restTemplate.getForObject(url, AlbumModel.class);
+            PhotoModel response = restTemplate.getForObject(url, PhotoModel.class);
 
             return ResponseEntity.ok(response);
 
@@ -44,7 +43,7 @@ public class AlbumController {
             return ResponseEntity.status(400).body("ID: " + id + ", is not a valid id. Must be a whole number");
 
         } catch (HttpClientErrorException.NotFound e) {
-            return ResponseEntity.status(404).body("Album Not Found With ID: " + id);
+            return ResponseEntity.status(404).body("Photo Not Found With ID: " + id);
 
         } catch (Exception e) {
             System.out.println(e.getClass());

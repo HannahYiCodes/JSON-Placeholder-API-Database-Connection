@@ -1,8 +1,7 @@
-package com.careerdevs.jsonplaceholderapi;
+package com.careerdevs.jsonplaceholderapi.mysql.repository;
 
+import com.careerdevs.jsonplaceholderapi.mysql.User;
 import org.springframework.data.repository.CrudRepository;
-
-import com.careerdevs.jsonplaceholderapi.User;
 
 // This will be AUTO IMPLEMENTED by Spring into a Bean called userRepository
 // CRUD refers Create, Read, Update, Delete

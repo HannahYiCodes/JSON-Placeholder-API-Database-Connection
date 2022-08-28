@@ -1,4 +1,4 @@
-package com.careerdevs.jsonplaceholderapi.models;
+package com.careerdevs.jsonplaceholderapi.basic.models;
 
 public class ToDoModel {
 //    {

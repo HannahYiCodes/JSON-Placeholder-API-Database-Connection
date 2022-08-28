@@ -1,15 +1,12 @@
-package com.careerdevs.jsonplaceholderapi.controller;
+package com.careerdevs.jsonplaceholderapi.basic.controller;
 
-
-import com.careerdevs.jsonplaceholderapi.models.UserModel;
+import com.careerdevs.jsonplaceholderapi.basic.models.UserModel;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
-
-import java.nio.file.Path;
 
 @RestController
 @RequestMapping("/api/users")

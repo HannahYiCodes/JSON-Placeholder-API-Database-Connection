@@ -1,7 +1,6 @@
-package com.careerdevs.jsonplaceholderapi.controller;
+package com.careerdevs.jsonplaceholderapi.basic.controller;
 
-import com.careerdevs.jsonplaceholderapi.models.CommentModel;
-import com.careerdevs.jsonplaceholderapi.models.PhotoModel;
+import com.careerdevs.jsonplaceholderapi.basic.models.CommentModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,13 +10,13 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 @RestController
-@RequestMapping("/api/photos")
-public class PhotoController {
-    private final String jsonPHPhotoEndpoint = "https://jsonplaceholder.typicode.com/photos";
+@RequestMapping("/api/comments")
+public class CommentController {
+    private final String jsonPHCommentsEndpoint = "https://jsonplaceholder.typicode.com/comments";
     @GetMapping("/all")
-    public ResponseEntity<?> getAllPhotos(RestTemplate restTemplate) {
+    public ResponseEntity<?> getAllComments(RestTemplate restTemplate) {
         try {
-            PhotoModel[] response = restTemplate.getForObject(jsonPHPhotoEndpoint, PhotoModel[].class);
+            CommentModel[] response = restTemplate.getForObject(jsonPHCommentsEndpoint, CommentModel[].class);
             return ResponseEntity.ok(response);
         } catch (Exception e) {
             System.out.println(e.getClass());
@@ -28,15 +27,15 @@ public class PhotoController {
     }
 
     @GetMapping("/id/{id}")
-    public ResponseEntity<?> getPhotoById(RestTemplate restTemplate, @PathVariable String id) {
+    public ResponseEntity<?> getCommentById(RestTemplate restTemplate, @PathVariable String id) {
         try {
             Integer.parseInt(id);
 
-            System.out.println("Getting Photo With ID: " + id);
+            System.out.println("Getting Comment With ID: " + id);
 
-            String url = jsonPHPhotoEndpoint + "/" + id;
+            String url = jsonPHCommentsEndpoint + "/" + id;
 
-            PhotoModel response = restTemplate.getForObject(url, PhotoModel.class);
+            CommentModel response = restTemplate.getForObject(url, CommentModel.class);
 
             return ResponseEntity.ok(response);
 
@@ -44,7 +43,7 @@ public class PhotoController {
             return ResponseEntity.status(400).body("ID: " + id + ", is not a valid id. Must be a whole number");
 
         } catch (HttpClientErrorException.NotFound e) {
-            return ResponseEntity.status(404).body("Photo Not Found With ID: " + id);
+            return ResponseEntity.status(404).body("Comment Not Found With ID: " + id);
 
         } catch (Exception e) {
             System.out.println(e.getClass());

@@ -1,4 +1,4 @@
-package com.careerdevs.jsonplaceholderapi;
+package com.careerdevs.jsonplaceholderapi.mysql;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

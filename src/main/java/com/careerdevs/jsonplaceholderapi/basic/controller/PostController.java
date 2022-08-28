@@ -1,7 +1,7 @@
-package com.careerdevs.jsonplaceholderapi.controller;
+package com.careerdevs.jsonplaceholderapi.basic.controller;
 
-import com.careerdevs.jsonplaceholderapi.models.CommentModel;
-import com.careerdevs.jsonplaceholderapi.models.ToDoModel;
+
+import com.careerdevs.jsonplaceholderapi.basic.models.PostModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,13 +11,14 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 @RestController
-@RequestMapping("/api/comments")
-public class CommentController {
-    private final String jsonPHCommentsEndpoint = "https://jsonplaceholder.typicode.com/comments";
+@RequestMapping("/api/posts")
+public class PostController {
+    private final String jsonPHPostsEndpoint = "https://jsonplaceholder.typicode.com/posts";
+
     @GetMapping("/all")
-    public ResponseEntity<?> getAllComments(RestTemplate restTemplate) {
+    public ResponseEntity<?> getAllPost(RestTemplate restTemplate) {
         try {
-            CommentModel[] response = restTemplate.getForObject(jsonPHCommentsEndpoint, CommentModel[].class);
+            PostModel[] response = restTemplate.getForObject(jsonPHPostsEndpoint, PostModel[].class);
             return ResponseEntity.ok(response);
         } catch (Exception e) {
             System.out.println(e.getClass());
@@ -28,15 +29,15 @@ public class CommentController {
     }
 
     @GetMapping("/id/{id}")
-    public ResponseEntity<?> getCommentById(RestTemplate restTemplate, @PathVariable String id) {
+    public ResponseEntity<?> getPostById(RestTemplate restTemplate, @PathVariable String id) {
         try {
             Integer.parseInt(id);
 
-            System.out.println("Getting Comment With ID: " + id);
+            System.out.println("Getting Post With ID: " + id);
 
-            String url = jsonPHCommentsEndpoint + "/" + id;
+            String url = jsonPHPostsEndpoint + "/" + id;
 
-            CommentModel response = restTemplate.getForObject(url, CommentModel.class);
+            PostModel response = restTemplate.getForObject(url, PostModel.class);
 
             return ResponseEntity.ok(response);
 
@@ -44,7 +45,7 @@ public class CommentController {
             return ResponseEntity.status(400).body("ID: " + id + ", is not a valid id. Must be a whole number");
 
         } catch (HttpClientErrorException.NotFound e) {
-            return ResponseEntity.status(404).body("Comment Not Found With ID: " + id);
+            return ResponseEntity.status(404).body("Post Not Found With ID: " + id);
 
         } catch (Exception e) {
             System.out.println(e.getClass());
